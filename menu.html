@@ -43,7 +43,7 @@
       <form action="/join" method="get">
         <div class="mb-3">
           <label for="roomCode" class="form-label">Room Code</label>
-          <input type="text" class="form-control" id="roomCode" placeholder="Enter room code">
+          <input type="text" class="form-control" id="roomCode" placeholder="Enter room code" name="roomCode">
         </div>
         <div class="mb-3">
             <label for="nickname" class="form-label">Nickname</label>
@@ -66,11 +66,13 @@
     }
     const params = new URLSearchParams(window.location.search);
     const name = params.get("name") || "Anonymous";
-    const button=document.querySelector(".btn btn-primary");
-    button.addEventListener('click',()=>{
-        socket.emit("created room");
-        window.location.href = "/chat.html?name="+name;
-    })
+    const button=document.querySelector(".btn.btn-primary");
+    button.addEventListener('click', () => {
+    socket.emit("created room", (newRoomID) => { // Emit the event and expect a callback with the room ID
+        alert('Your room has the following ID: ' + newRoomID); // Display the room ID
+        window.location.href = "/chat.html?name=" + name + "&roomid=" + newRoomID; // Redirect to chat page
+    });
+});
     const nameinput=document.getElementById("nickname");
     nameinput.value=name;
 
