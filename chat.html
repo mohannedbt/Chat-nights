@@ -76,6 +76,10 @@
   });
 
   socket.on('message men 3andi', function(msg) {
+  const myName = name + ":";
+  
+  // Only trigger sound + browser notification if the message is NOT from me
+  if (!msg.startsWith(myName)) {
     notificationSound.play().catch(e => {
       console.log('Unable to play sound:', e);
     });
@@ -83,12 +87,14 @@
     if (Notification.permission === "granted") {
       new Notification("New message", { body: msg });
     }
+  }
 
-    var item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-  });
+  // Always display the message in the chat
+  var item = document.createElement('li');
+  item.textContent = msg;
+  messages.appendChild(item);
+  window.scrollTo(0, document.body.scrollHeight);
+});
 </script>
 
   </body>
