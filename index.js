@@ -122,6 +122,9 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3000, '0.0.0.0', () => {
-  console.log('[SERVER STARTED] Listening on http://0.0.0.0:3000');
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`[SERVER STARTED] Listening on http://0.0.0.0:${PORT}`);
 });
+
