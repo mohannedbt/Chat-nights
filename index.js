@@ -17,6 +17,8 @@ function generateRoomID() {
   console.log('[ROOM ID GENERATED]', id);
   return id;
 }
+app.use('/sounds', express.static(__dirname + '/sounds'));
+
 
 // Serve pages
 app.get('/', (req, res) => {

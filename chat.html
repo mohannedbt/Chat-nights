@@ -23,50 +23,73 @@
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
-      const params = new URLSearchParams(window.location.search);
-      const name = params.get("name") || "Anonymous";
-      const roomID = params.get("roomid"); 
-      socket.emit('name el personne',name);
-       // If roomID exists in URL, attempt to join the room
-       if (roomID) {
-        socket.emit('join room', roomID);
-      }
-     
-      var form = document.getElementById('form');
-      var input = document.getElementById('input');
-    
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (input.value) {
-          socket.emit('message men 3andi',name+": "+input.value);
-          input.value = '';
-        }
-      });
-      socket.on('connecta',function(msg){
-        var item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-      });
-      socket.on('room info', function(msg) {
-    var item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-});
-      socket.on('disconnect',function(msg){
-        var item = document.createElement('li');
-    item.textContent = msg;
-    messages.appendChild(item);
-    window.scrollTo(0, document.body.scrollHeight);
-      })
-      socket.on('message men 3andi', function(msg) {
+  const messages = document.getElementById('messages');
+  var socket = io();
+  const notificationSound = new Audio('sounds/notif.mp3');
+
+  if (Notification.permission !== "granted" && Notification.permission !== "denied") {
+    Notification.requestPermission();
+  }
+
+  document.body.addEventListener('click', () => {
+    notificationSound.play().catch(() => {});
+  }, { once: true });
+
+  const params = new URLSearchParams(window.location.search);
+  const name = params.get("name") || "Anonymous";
+  const roomID = params.get("roomid"); 
+  socket.emit('name el personne',name);
+  if (roomID) {
+    socket.emit('join room', roomID);
+  }
+
+  var form = document.getElementById('form');
+  var input = document.getElementById('input');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (input.value) {
+      socket.emit('message men 3andi', name + ": " + input.value);
+      input.value = '';
+    }
+  });
+
+  socket.on('connecta', function(msg) {
     var item = document.createElement('li');
     item.textContent = msg;
     messages.appendChild(item);
     window.scrollTo(0, document.body.scrollHeight);
   });
-    </script>
+
+  socket.on('room info', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  socket.on('disconnect', function(msg) {
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+
+  socket.on('message men 3andi', function(msg) {
+    notificationSound.play().catch(e => {
+      console.log('Unable to play sound:', e);
+    });
+
+    if (Notification.permission === "granted") {
+      new Notification("New message", { body: msg });
+    }
+
+    var item = document.createElement('li');
+    item.textContent = msg;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  });
+</script>
+
   </body>
 </html>
