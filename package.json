@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "my first socket.io app",
 "scripts": {
-  "start": "nodemon index.js",
+  "start": "node index.js",
   "watch": "browser-sync start --proxy 'localhost:3000' --files 'public/**/*.*' --reload-delay 1000" 
 },
     "devDependencies": {
