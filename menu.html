@@ -7,27 +7,91 @@
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #f8f9fa;
-    }
-    .menu-box {
-      padding: 40px;
-      border-radius: 16px;
-      background: white;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 100%;
-      max-width: 400px;
-    }
-    .form-section {
-      display: none;
-      margin-top: 20px;
-    }
-  </style>
+  body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #141e30, #243b55);
+    font-family: "Segoe UI", sans-serif;
+  }
+
+  .menu-box {
+    padding: 50px 40px;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+    transition: all 0.3s ease;
+  }
+
+  .menu-box h1 {
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+  .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: 0.2s;
+  }
+
+  .btn-secondary:hover {
+    background-color: #545b62;
+  }
+
+  .form-section {
+    display: none;
+    margin-top: 25px;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #333;
+  }
+
+  .form-control {
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    transition: 0.2s;
+  }
+
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.15rem rgba(0, 123, 255, 0.25);
+  }
+
+  .btn-success {
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 500;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
 </head>
 <body>
 
